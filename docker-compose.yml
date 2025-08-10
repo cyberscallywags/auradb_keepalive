@@ -1,0 +1,25 @@
+services:
+  auradb-keepalive:
+    build: .
+    container_name: auradb_keepalive
+    restart: unless-stopped
+    environment:
+      - AURA_URI=neo4j+s://fcf6ab9f.databases.neo4j.io
+      - AURA_USER=neo4j
+      - AURA_PASSWORD=urgG0EAonNRErG5IifxqBJXtRi3HC82tltDVq9uGXqY
+      - FREQUENCY_MINUTES=500
+      # Slack alerts
+      - ENABLE_SLACK=false
+      - SLACK_WEBHOOK=
+      # Email alerts
+      - ENABLE_EMAIL=false
+      - SMTP_SERVER=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=
+      - SMTP_PASSWORD=
+      - EMAIL_TO=
+    healthcheck:
+      test: ["CMD", "python", "health_check.py"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
