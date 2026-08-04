@@ -1,0 +1,22 @@
+stages:
+  - lint
+  - build
+
+lint:
+  stage: lint
+  image: python:3.11-slim
+  before_script:
+    - python -m pip install --upgrade pip
+    - pip install -r requirements.txt
+    - pip install ruff==0.15.8
+  script:
+    - ruff check .
+    - python -m compileall -q .
+
+docker-build:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  script:
+    - docker build -t auradb-keepalive:ci .

@@ -1,0 +1,7 @@
+# Explicit, reproducible lint configuration so local and CI behave identically.
+target-version = "py311"
+line-length = 100
+
+[lint]
+# pycodestyle errors, pyflakes, and import sorting.
+select = ["E", "F", "I"]

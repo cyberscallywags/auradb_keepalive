@@ -1,11 +1,12 @@
 import os
-import time
-import schedule
 import smtplib
-import requests
+import time
 from email.mime.text import MIMEText
+
+import requests
+import schedule
 from neo4j import GraphDatabase
-from neo4j.exceptions import ServiceUnavailable, AuthError
+from neo4j.exceptions import AuthError, ServiceUnavailable
 
 # --- Configuration ---
 AURA_URI = os.getenv("AURA_URI", "neo4j+s://<your-instance-id>.databases.neo4j.io")
@@ -19,7 +20,7 @@ ENABLE_SLACK = os.getenv("ENABLE_SLACK", "false").lower() == "true"
 SLACK_WEBHOOK = os.getenv("SLACK_WEBHOOK", "")
 ENABLE_EMAIL = os.getenv("ENABLE_EMAIL", "false").lower() == "true"
 SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
+SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
 EMAIL_TO = os.getenv("EMAIL_TO", "")
