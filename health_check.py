@@ -1,6 +1,7 @@
 
-import sys
 import os
+import sys
+
 from neo4j import GraphDatabase
 
 AURA_URI = os.getenv("AURA_URI")

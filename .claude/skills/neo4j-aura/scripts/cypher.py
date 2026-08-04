@@ -16,7 +16,7 @@ import sys
 
 try:
     from neo4j import GraphDatabase
-    from neo4j.exceptions import Neo4jError, ServiceUnavailable, AuthError
+    from neo4j.exceptions import AuthError, Neo4jError, ServiceUnavailable
 except ImportError:
     sys.exit("The 'neo4j' driver is not installed. Run: pip install neo4j")
 
@@ -49,7 +49,8 @@ def main():
     user = os.getenv("AURA_USER")
     password = os.getenv("AURA_PASSWORD")
 
-    missing = [n for n, v in (("AURA_URI", uri), ("AURA_USER", user), ("AURA_PASSWORD", password)) if not v]
+    required = (("AURA_URI", uri), ("AURA_USER", user), ("AURA_PASSWORD", password))
+    missing = [name for name, value in required if not value]
     if missing:
         sys.exit(f"Missing required environment variable(s): {', '.join(missing)}")
 
