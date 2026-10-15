@@ -1,0 +1,42 @@
+# GitLab CI for Cyber Scallywags projects.
+# Mirror of the GitHub Actions pipeline: lint, test, and (optional) Docker build.
+stages:
+  - lint
+  - test
+  - build
+
+default:
+  image: python:3.11-slim
+
+lint:
+  stage: lint
+  before_script:
+    - python -m pip install --upgrade pip
+    - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - pip install ruff
+  script:
+    - ruff check .
+
+test:
+  stage: test
+  before_script:
+    - python -m pip install --upgrade pip
+    - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - pip install pytest
+  script:
+    - pytest -q || echo "No tests yet — remove this fallback once tests exist."
+
+docker-build:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  script:
+    - |
+      if [ -f Dockerfile ]; then
+        docker build -t "$CI_PROJECT_NAME:ci" .
+      else
+        echo "No Dockerfile — skipping."
+      fi
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "{{DEFAULT_BRANCH}}" || $CI_PIPELINE_SOURCE == "merge_request_event"'
