@@ -17,13 +17,18 @@ project-template/
 ├── CODE_OF_CONDUCT.md           → Contributor Covenant
 ├── SECURITY.md                  → private vulnerability disclosure policy
 ├── .gitlab-ci.yml               → GitLab CI pipeline (lint + test + build)
-└── .github/
-    ├── workflows/ci.yml         → GitHub Actions: lint + test + Docker build
-    ├── workflows/codeql.yml     → GitHub Actions: CodeQL security scan
-    ├── dependabot.yml           → automated dependency updates
-    ├── PULL_REQUEST_TEMPLATE.md → PR checklist
-    └── ISSUE_TEMPLATE/          → bug report + feature request forms
+├── .github/
+│   ├── workflows/ci.yml         → GitHub Actions: lint + test + Docker build
+│   ├── workflows/codeql.yml     → GitHub Actions: CodeQL security scan
+│   ├── dependabot.yml           → automated dependency updates
+│   ├── PULL_REQUEST_TEMPLATE.md → PR checklist
+│   └── ISSUE_TEMPLATE/          → bug report + feature request forms
+└── wiki/                        → ready-to-publish wiki pages (see wiki/README.md)
 ```
+
+> The `wiki/` pages are **not** part of the project repo itself — they're meant
+> to be pushed to the separate project wiki. See [`wiki/README.md`](wiki/README.md)
+> for how to publish them.
 
 ## How to bootstrap a new project
 
